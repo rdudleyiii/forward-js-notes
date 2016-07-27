@@ -565,7 +565,7 @@ var o = {
 
 	},
 	*d() {...},
-	//concise computer generator method
+	//concise computed generator method
 	*[prop+"_"]() {
 
 	}

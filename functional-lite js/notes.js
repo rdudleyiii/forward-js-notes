@@ -235,7 +235,6 @@ function sumRecur( sum, ...nums ) {
 
 sumRecur( 3, 4, 5, 6, 7, 8, 9 ); // 42
 
-
 // Performace of recursion
 	// speed of call
 	// usage of memory
@@ -254,6 +253,7 @@ sumRecur( 3, 4, 5, 6, 7, 8, 9 ); // 42
 function sumRecur( sum, ...nums ) 
 	return recur( ...nums );
 
+	// *************************
 	function recur( sum, num, ...nums ) {
 		sum += num;
 		if (nums.length == 0) return sum;
@@ -268,6 +268,7 @@ sumRecur( 3, 4, 5, 6, 7, 8, 9 ); // 42
 const sumRecur = ( function() {
 	return ( ...nums ) => recur( ...nums );
 
+	// *************************
 	function recur( sum, num, ...nums ) {
 		sum += num;
 		if ( nums.length == 0 ) return sum;
@@ -277,3 +278,15 @@ const sumRecur = ( function() {
 	
 sumRecur( 3, 4, 5, 6, 7, 8, 9 ); // 42
 
+////////////////////////
+
+// to refactor
+function sumRecur( sum, num, ...nums ) {
+	sum += num;
+	if ( nums.length == 0 ) return sum;
+	return sumRecur( sum, ..nums );
+}
+
+sumRecur( 3, 4, 5, 6, 7, 8, 9 ); // 42
+
+// Lists
