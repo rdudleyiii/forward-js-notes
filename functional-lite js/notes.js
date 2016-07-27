@@ -290,3 +290,37 @@ function sumRecur( sum, num, ...nums ) {
 sumRecur( 3, 4, 5, 6, 7, 8, 9 ); // 42
 
 // Lists
+function doubleIt(v) {
+	return v * 2;
+}
+
+function transform(ar, fn) {
+	var list = [];
+
+	for (var i = 0; i < ar.length; i++) {
+		list[i] = fn(ar[i]);
+	}
+
+	return list;
+}
+
+transform([1,2,3,4,5], doubleIt); // [2,4,6,8,10]
+
+// Map
+function doubleIt(v) {
+	return v * 2;
+}
+
+[1,2,3,4,5].map(doubleIt); // [2,4,6,8,10]
+
+//Filter
+
+//Filter: Exclusion
+
+function isOdd(v) {
+	return v % 2 == 1;
+}
+
+function exclude(arr, fn) {
+	// body...
+}
