@@ -322,5 +322,46 @@ function isOdd(v) {
 }
 
 function exclude(arr, fn) {
-	// body...
+	var list = [];
+	for (var i = 0; i < arr.length; i++) {
+		if (fn(arr[i])) {
+			list.push(arr[i]);
+		}
+	}
+
+	return list;
 }
+
+exclude([1,2,3,4,5], isOdd);
+
+/////
+
+function onlyOdds(val) {
+	return val % 2 == 1;
+}
+
+[1,2,3,4,5].filter( onlyOdds )
+
+// REDUCE: COMBINING
+
+function mult( x, y ) { return x * y; }
+
+function combine( arr, fn, init ) {
+	var result = init;
+
+	for ( var i = 0; i < arr.length; i++ ) {
+		result = fn( result, arr[i] );
+	}
+
+	return result;
+}
+
+combine( [ 1, 2, 3, 4 ,5 ], mult, 1 );
+
+//
+
+function acronym( str, word ) {
+	return str + word.charAt( 0 );
+}
+
+[ "Functional", "Light", "JavaScript", "Stuff"].reduce( acronym, "" );
