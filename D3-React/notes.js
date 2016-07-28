@@ -94,7 +94,7 @@
 	    }
 	    return <div>
 	      <button onClick={this.moreCats.bind(this)}>More Cats!</button>
-	      <button onClick={this.noCats.bind(this)}>Ok that's too many...</button>
+	      <button onClick={this.noCats.bind(this)}>Ok that is too many...</button>
 	      <div>
 	        {cats}
 	      </div>
@@ -287,10 +287,12 @@
 
 		}
 
+		// checks to see if component was attached to DOM
 		componentDidMount() {
 
 		}
 
+		// checks to see if component changed by comparing diffs in state
 		componentDidUpdate() {
 
 		}
@@ -298,8 +300,11 @@
 
 // Module 3: D3.js 101
 	// Scales: map domain to range.
+
 	// Array Operations: helpful data manipulations.
+	
 	// Data loading: talk to any remote source.
+
 
 // Module 4: D3 + React Integration
 
