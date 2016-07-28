@@ -301,12 +301,233 @@
 // Module 3: D3.js 101
 	// Scales: map domain to range.
 
+		// Ordinal Scale
+		let ordinal = d3.scale.ordinal()
+		  .domain([1, 2, 3])
+	  	.range(['D', 'C', 'C', 'B', 'A']);
+
+		const div = document.createElement('div');
+		div.innerHTML = [ordinal(1), ordinal(2), ordinal(3)];
+		document.body.appendChild(div);
+
+		// Linear Scale
+		let linear = d3.scale.linear()
+  		.domain([-1, 1])
+	  	.range([-100, 100]);
+
+		const div = document.createElement('div');
+		div.innerHTML = [linear(-1), linear(0), linear(1)];
+		document.body.appendChild(div);
+
+		// Power Scale
+		let pow = d3.scale.pow()
+		  .exponent(3);
+
+		const div = document.createElement('div');
+		div.innerHTML = [pow(1), pow(2), pow(3)];
+		document.body.appendChild(div);
+
+		// Log Scale
+		let log = d3.scale.log()
+
+		const div = document.createElement('div');
+		div.innerHTML = [log(1), log(2), log(3)];
+		document.body.appendChild(div);
+
 	// Array Operations: helpful data manipulations.
+		// D3 can make arrays
+		let data = d3.range(0, 100, 5);
+
+		const div = document.createElement('div');
+		div.innerHTML = data;
+		document.body.appendChild(div);
 	
+		
+		// D3 can tell you things about the array
+		let data = d3.range(0, 100, 5);
+
+		let min = d3.min(data); // 0
+		let max = d3.max(data); // 95
+		let extent = d3.extent(data); //[0, 95]
+
+		const div = document.createElement('div');
+		div.innerHTML = [min, max,extent];
+		document.body.appendChild(div);
+
+		
+		// D3 does basic statistics
+		let data = d3.range(0, 100, 5);
+
+		const mean = d3.mean(data); 
+		const median = d3.median(data); 
+		const quantile = d3.quantile(data, 1); 
+		const variance = d3.variance(data); 
+		const deviation = d3.deviation(data);
+
+		const div = document.createElement('div');
+		div.innerHTML = [mean, median, quantile, variance, deviation];
+		document.body.appendChild(div);
+		
+		
+		// Nesting
+		let data = d3.range(0, 100, 5);
+
+		let array_of_object;
+
+		let grouped = d3.nest()
+		                .key((d) => d.name)
+		                .sortKeys(d3.ascending)
+		                .entries(array_of_object);
+	
+		
 	// Data loading: talk to any remote source.
+		try {
+		  d3.csv('./2016-FCC-New-Coders-Survey-Data.csv')
+		    .row((d) => fixRow(parseRow(d)))
+		    .get((err, data) => {
+		      /**
+		      *  [{field1: '...', field2: '...' }
+		      *  {field1: '..., field2: '...}]
+		      */
+		    })
+		} catch(e) {
+		  
+		}
+	
+	// D3 The Good Parts
+		// Selections: for selecting things.
+			try {
+			  let node = d3.select('.some-css-class');
+			  let alsoNode = d3.select(findDOMNode(ref));
+			} catch(e) {
+			  
+			}
+
+
+		// Axes: make your graphs understandable.
+			let scale = d3.scaleLinear();
+			let axis = d3.axisBottom(scale);
+
+			d3.select(node).call(axis);
+
+			// makes the following to the DOM
+
+			/*
+				_________________________________________
+				0			1,000			2,000			3,000			4,000
+
+			*/
+
+		// Shapes: build the basics for you to draw.
+			// Build the most common thing you need.
+			// Calculate coordinates.
+			// You do the rendering.
+
+		// Transitions: simple animations.
 
 
 // Module 4: D3 + React Integration
+	// D3 Does Props
+	const Component = React.Component;
+
+	class Line extends Component {
+	  constructor(props) {
+	    super(props);
+	    
+	    // Set up scales and a line generator
+	    this.yScale = d3.scaleLinear();
+	    this.xScale = d3.scaleLinear();
+
+	    this.line = d3.line()
+						.x(d => this.xScale(d[0]))
+						.y(d => this.yScale(d[1]))
+
+	    this.updateD3(props);
+	  }
+	  
+	  componentWillReceiveProps(newProps) {
+	    this.updateD3(newProps);
+	  }
+	  
+	  updateD3(props) {
+	    const { start, end } = props;
+	    
+	    // update scales
+	    this.xScale.domain( [ start[0], end[0] ] )
+	    			.range([10, 200]);
+
+		this.yScale.domain( [ start[1], end[1] ] )
+					.range([10, 200]);
+	  }
+	  
+	  render() {
+	    const { start, end } = this.props;
+	    
+	    // use the line generator for the `d` attribute
+	    const otherPoints = [ 2.5, 1 ];
+	    const dataPoints = [ start, end, otherPoints ];
+	    const D = this.line( dataPoints );
+
+	    return (
+	      <path d={D} />
+	    )
+	  }
+	}
+
+	class App extends Component {
+	  render() {
+	    return (
+	      <svg width="100%" height="200">
+	        <Line start={[1, 1]} end={[2, 3]} />
+	      </svg>
+	    )
+	  }
+	}
+
+	ReactDOM.render(<App />, document.getElementById('app'));
+
+	
+	// Blackbox Components
+	const Component = React.Component;
+
+	class Axis extends Component {  
+	  // render an axis whenever component updates
+	  
+	  renderAxis() {
+	    // axis generator
+	    let axis = d3.axisBottom(this.props.scale);
+	    
+	    // this.refs.wrapper to add to wrapper element
+	    d3.select(this.refs.wrapper).call(axis);
+	  }
+	  
+	  componentDidMount() { // called after first time component renders. We know it's on the page
+	  	this.renderAxis() ;
+	  }
+	  componentDidUpdate() { // called after render is done. We can be sure that the DOM node is in the page and can be manipulated. for d3.select() manipulation outside of react
+	  	this.renderAxis();
+	  }
+	  
+	  render() {
+	    const transform = `translate(${this.props.x}, ${this.props.y})`;
+	    return <g ref="wrapper" transform={transform}></g>
+	  }
+	}
+
+	class App extends Component {
+	  render() {
+	    let xScale = d3.scaleLinear().domain([0, 1]).range([0, 300]);
+	    // let xScale = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+	    
+	    return (
+	      <svg width="100%" height="200">
+	        <Axis x={10} y={50} scale={xScale}/>
+	      </svg>
+	    )
+	  }
+	}
+
+	ReactDOM.render(<App />, document.getElementById('app'));
 
 // Module 5: Final Project (Shiny scatterplot)
 
