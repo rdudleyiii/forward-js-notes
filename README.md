@@ -1,4 +1,4 @@
-# forward-js-notes
+# ForwardJS Notes
 Notes From ForwardJS Conference. July 2016
 
 [ES6 Workshop](https://github.com/rdudleyiii/forward-js-notes/tree/master/es6Workshop)
