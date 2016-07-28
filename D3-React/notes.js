@@ -582,6 +582,7 @@
 
 
 	// transitions
+		
 	const Component = React.Component;
 
 	class Circle extends Component {
@@ -632,3 +633,4 @@
 
 // Module 5: Final Project (Shiny scatterplot)
 
+// ex/exFinal.js
