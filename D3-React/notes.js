@@ -529,5 +529,106 @@
 
 	ReactDOM.render(<App />, document.getElementById('app'));
 
+
+	// Simple Animations
+	const Component = React.Component;
+
+	const Circle = ({ x, y }) => (
+	  <circle cx={x} cy={y} r={5} />
+	);
+
+	class App extends Component {
+	  constructor() {
+	    super();
+	    
+	    this.state = { 
+	      x: 10,
+	      vx: 1.5,
+	      x2: 200
+	    };
+	  }
+	  
+	  componentDidMount() {
+	    // keep changing state.x
+	    this.timer = d3.timer(() => {
+	      let { x, vx, x2 } = this.state;
+	      x = x+vx;
+	      x2 = x2-vx;
+	      
+	      if (x > 200 || x < 10) {
+	        vx = -vx;
+	      }
+	      
+	      this.setState( { x, vx, x2 });
+	    })
+	  }
+
+	  componentWillUnmount() {
+	    // clean up after yourself
+	    this.timer.stop();
+	  }
+	  
+	  render() {
+	    return (
+	      <svg width="100%" height="200">
+	        <Circle x={this.state.x} y={50} />
+	        <Circle x={this.state.x2} y={100} />
+	      </svg>
+	    )
+	  }
+	}
+
+	ReactDOM.render(<App />, document.getElementById('app'));
+
+
+	// transitions
+	const Component = React.Component;
+
+	class Circle extends Component {
+	  constructor( props ) {
+	    super( props );
+	    
+	    // copy x, y props to state
+	    this.state = { x: props.x, y: props.y }
+	    
+	  }
+	  
+	  componentWillReceiveProps(newProps) {
+	    // use d3 to change attributes with a transition
+	    d3.select(this.refs.circle)
+	      .transition()
+	      .attr('cy', newProps.y )
+	      .on('end', () => this.setState( { y: newProps.y } ));
+	  }
+	  
+	  render() {
+	    return (
+	      <circle cx={this.state.x} cy={this.state.y} ref="circle" r="5" />
+	    )
+	  }
+	}
+
+	class App extends Component {
+	  constructor() {
+	    super();
+	    
+	    this.state = { y: 10 };
+	  }
+	  componentDidMount() {
+	    setTimeout(() => this.setState( { y: 200 } ), 1000 );
+	  }
+	  
+	  render() {
+	    
+	    return (
+	      <svg width="100%" height="800">
+	        <Circle x={40} y={this.state.y} />
+	      </svg>
+	    )
+	  }
+	}
+
+	ReactDOM.render(<App />, document.getElementById('app'));
+
 // Module 5: Final Project (Shiny scatterplot)
 
