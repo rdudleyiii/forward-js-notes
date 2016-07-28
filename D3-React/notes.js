@@ -80,7 +80,9 @@
 	// Managing State.
 	class Cats extends React.Component {
 	  constructor(props){
+	  	// do super(props) because React needs to know what to track so it can do the diff when changes happen
 	    super(props);
+	    // initialize state
 	    this.state = { count: 1 };
 	  }
 	  
@@ -99,9 +101,12 @@
 	    </div>
 	  }
 	  
+	  // function to do stuff
 	  moreCats() {
 	    const newCount = this.state.count + 1;
+	    // setState: have to tell react something changed. will re-render component and children
 	    this.setState({ count: newCount });
+	    // only have to pass an obj of what state is changing
 	  }
 	  
 	  noCats() {
