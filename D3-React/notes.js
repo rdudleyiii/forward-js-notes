@@ -71,7 +71,7 @@
 	class Author extends React.Component {
 	  render() {
 	    const name = this.props.name;
-	    return <p className={`m-${name}`}>{name}</p>
+	    return <p className={`m-${name}`}>{ name }</p>
 	  }
 	}
 
