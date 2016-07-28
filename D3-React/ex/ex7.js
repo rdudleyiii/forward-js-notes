@@ -32,12 +32,12 @@ class Pets extends React.Component {
     </div>
   }
 }
-class Animal {
+
+function Animal({handleClick, count, name}) {
     return <div>
-      <button onClick={this.props.handleClick}>More {this.props.name}</button>
-      <p>I have {this.props.count} {this.props.name}.</p>
+      <button onClick={handleClick}>More {name}</button>
+      <p>I have {count} {name}.</p>
     </div>
-  }
 }
 
 ReactDOM.render(<Pets />, document.getElementById('app'));
