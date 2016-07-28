@@ -122,11 +122,184 @@
 	}
 
 	ReactDOM.render(<Cats />, document.getElementById('app'));
+	
 	// Props vs State.
+	// state: things that change over time. user input, data from server
+	// state: largest source of bugs
+		// state seems to be a lot like $scope in Angular
+	class Pets extends React.Component {
+	  constructor( props ) {
+	    super( props );
+	    this.state = {
+	      catCount: 0,
+	      dogCount: 0
+	    };
+	  }
+	  
+	  moreCats() {
+	    const newCount = this.state.catCount + 1;
+	    this.setState( { catCount: newCount } );
+	  }
+	  
+	  moreDogs() {
+	    const newCount = this.state.dogCount + 1;
+	    this.setState( { dogCount: newCount } );
+	  }
+	  
+	  render() {
+	    return <div>
+	      <Cats count={this.state.catCount} handleClick={this.moreCats.bind(this)}/>
+	      <Dogs count={this.state.dogCount} handleClick={this.moreDogs.bind(this)}/>
+	    </div>
+	  }
+	}
+
+	class Cats extends React.Component {
+	  render() {
+	    return <div>
+	      <button onClick={this.props.handleClick}>More Cats</button>
+	      <p>I have {this.props.count} cats.</p>
+	    </div>
+	  }
+	}
+
+	class Dogs extends React.Component {
+	  render() {
+	  	// value of handleClick is a function, and set as a prop in the Pets Parent Component
+	    return <div>
+	      <button onClick={this.props.handleClick}>More Dogs</button>
+	      <p>I have {this.props.count} dogs.</p>
+	    </div>
+	  }
+	}
+
+	ReactDOM.render(<Pets />, document.getElementById('app'));
+
 	// React is Just JavaScript.
+	class Pets extends React.Component {
+	  constructor(props){
+	    super(props);
+	    this.state = {
+	      catCount: 0,
+	      dogCount: 0
+	    };
+	  }
+	  
+	  moreCats() {
+	    const newCount = this.state.catCount + 1;
+	    this.setState({catCount: newCount});
+	  }
+	  
+	  moreDogs() {
+	    const newCount = this.state.dogCount + 1;
+	    this.setState({dogCount: newCount});
+	  }
+	  
+	  render() {
+	    return <div>
+	      <Cats count={this.state.catCount} handleClick={this.moreCats.bind(this)}/>
+	      <Dogs count={this.state.dogCount} handleClick={this.moreDogs.bind(this)}/>
+	    </div>
+	  }
+	}
+
+	class Cats extends React.Component {
+	  render() {
+	    return <div>
+	      <button onClick={this.props.handleClick}>More Cats</button>
+	      <p>I have {this.props.count} cats.</p>
+	    </div>
+	  }
+	}
+
+	class Dogs extends React.Component {
+	  render() {
+	    return <div>
+	      <button onClick={this.props.handleClick}>More Dogs</button>
+	      <p>I have {this.props.count} dogs.</p>
+	    </div>
+	  }
+	}
+
+	ReactDOM.render(<Pets />, document.getElementById('app'));
+	// refactored version
+	class Pets extends React.Component {
+	  constructor(props){
+	    super(props);
+	    this.state = {
+	      catCount: 0,
+	      dogCount: 0
+	    };
+	  }
+	  
+	  moreCats() {
+	    const newCount = this.state.catCount + 1;
+	    this.setState({catCount: newCount});
+	  }
+	  
+	  moreDogs() {
+	    const newCount = this.state.dogCount + 1;
+	    this.setState({dogCount: newCount});
+	  }
+	  
+	  render() {
+	    return <div>
+	      <Animal name="cats"
+	        count={this.state.catCount}
+	        handleClick={this.moreCats.bind(this)}/>
+	      <Animal name="dogs"
+	        count={this.state.dogCount}
+	        handleClick={this.moreDogs.bind(this)}/>
+	    </div>
+	  }
+	}
+
+	class Animal extends React.Component {
+	  render() {
+	    return <div>
+	      <button onClick={this.props.handleClick}>More {this.props.name}</button>
+	      <p>I have {this.props.count} {this.props.name}.</p>
+	    </div>
+	  }
+	}
+
+	// to make is functional
+	function Animal({handleClick, count, name}) {
+		return <div>
+			<button onClick={handleClick}>More {name}</button>
+      <p>I have {count} {name}.</p>
+		</div>
+	}
+
+	ReactDOM.render(<Pets />, document.getElementById('app'));
+
 	// React is Functional.
+	// stateless functional components
+		// rendered as a value, no state tracked
+	function Person(props) {
+	  return <h1>Hi my name is: {props.name}</h1>
+	}
+
+	ReactDOM.render(<Person name="Freddy Rangel" />, document.getElementById('app'));
+
+	class Thing extends React.Component {
+		render() {
+
+		}
+
+		componentDidMount() {
+
+		}
+
+		componentDidUpdate() {
+
+		}
+	}
 
 // Module 3: D3.js 101
+	// Scales: map domain to range.
+	// Array Operations: helpful data manipulations.
+	// Data loading: talk to any remote source.
 
 // Module 4: D3 + React Integration
 
