@@ -78,6 +78,45 @@
 	ReactDOM.render(<Article />, document.getElementById('app'));
 
 	// Managing State.
+	class Cats extends React.Component {
+	  constructor(props){
+	    super(props);
+	    this.state = { count: 1 };
+	  }
+	  
+	  render() {
+	    const cats = [];
+	    const count = this.state.count;
+	    for (let i = 0; i < count; i++) {
+	      cats.push(<CatImage />)
+	    }
+	    return <div>
+	      <button onClick={this.moreCats.bind(this)}>More Cats!</button>
+	      <button onClick={this.noCats.bind(this)}>Ok that's too many...</button>
+	      <div>
+	        {cats}
+	      </div>
+	    </div>
+	  }
+	  
+	  moreCats() {
+	    const newCount = this.state.count + 1;
+	    this.setState({ count: newCount });
+	  }
+	  
+	  noCats() {
+	    const newCount = this.state.count - 1;
+	    this.setState({ count: newCount });
+	  }
+	}
+
+	class CatImage extends React.Component {
+	  render() {
+	    return <img width="200" src="http://thecatapi.com/api/images/get?format=src&type=gif"/>
+	  }
+	}
+
+	ReactDOM.render(<Cats />, document.getElementById('app'));
 	// Props vs State.
 	// React is Just JavaScript.
 	// React is Functional.

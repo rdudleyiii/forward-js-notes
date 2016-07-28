@@ -23,7 +23,7 @@ class Header extends React.Component {
 class Lifter extends React.Component {
 	render() {
 		const lifterName = this.props.name;
-		return <p className="child">{ name }</p>
+		return <p className="child">{ lifterName }</p>
 	}
 }
 
