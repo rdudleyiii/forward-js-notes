@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-animate.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+	<script src=""></script>
+</head>
+<body>
+<h1><a href="https://docs.google.com/presentation/d/1-0zkCCJtkts5nLH5_Ke_rAK-NI8SkMKAEqrbDY31_5g/edit#slide=id.gc6f919934_0_5">Presentation</a></h1>
+<p><a href="bit.ly/angular-threeJS">Docs</a></p>
+
+<script type="text/javascript">
+	var scene = new THREE.Scene();
+
+	var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+	var renderer = new THREE.WebGLRenderer();
+	
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	
+	document.body.appendChild( renderer.domElement );
+
+	//width, height, depth
+	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+	
+	// define what it's made of
+	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+
+	var cube = new THREE.Mesh( geometry, material );
+	
+	scene.add( cube );
+
+	camera.position.z = 5;
+
+	function render() {
+		requestAnimationFrame( render );
+		renderer.render( scene, camera );
+	}
+
+	render();
+
+	cube.rotation.x += 0.1;
+	cube.rotation.y += 0.5;
+
+	var group = new THREE.Object3D;
+	
+	group.add(cube);
+	// group.add(sphere);
+	scene.add(group);
+	group.rotation.x += 0.2;
+	group.rotation.y += 0.2;
+
+
+</script>
+</body>
+</html>
