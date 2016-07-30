@@ -43,3 +43,6 @@
 	// pause JS based on JS changes
 
 // background: linear-gradient(to left, #00c6ff , #ff00b1);
+
+// can add 'debugger;' in source file. chrome will stop on it
+// without having to set breakpoint
