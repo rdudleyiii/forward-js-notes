@@ -8,6 +8,8 @@ Notes From ForwardJS Conference. July 2016
 
 [D3 and React](https://github.com/rdudleyiii/forward-js-notes/tree/master/D3-React/)
 
+[Mastering Dev Tools](https://github.com/rdudleyiii/forward-js-notes/tree/master/MasteringDevTools/)
+
 
 # Keynote Day
 
